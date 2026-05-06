@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { width: 80%; margin: 20px auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; }
+        .header { background: #1a237e; color: white; padding: 10px; border-radius: 5px 5px 0 0; text-align: center; }
+        .content { padding: 20px; }
+        .footer { font-size: 0.8em; color: #777; text-align: center; margin-top: 20px; }
+        .button { display: inline-block; padding: 10px 20px; background: #1a237e; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VORTEX Technology</h1>
+        </div>
+        <div class="content">
+            <h2>Hello, <%= customerName %>!</h2>
+            <p>We wanted to let you know that your license for <strong><%= productName %></strong> is about to expire on <strong><%= expiryDate %></strong>.</p>
+            <p>To ensure uninterrupted service, please renew your subscription soon.</p>
+            <p><a href="#" class="button">Renew Now</a></p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 VORTEX Technology. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
