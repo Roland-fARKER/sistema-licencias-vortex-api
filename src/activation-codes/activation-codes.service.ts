@@ -58,7 +58,7 @@ export class ActivationCodesService {
         // Mark as used
         code.isUsed = true;
         code.usedAt = new Date();
-        code.machineIdLinked = machineId;
+        code.machineIdLinked = 'N/A (SaaS)'; // No vinculamos Hardware ID especifico en modo SaaS
         await this.activationCodesRepo.save(code);
 
         // Generate the actual offline license

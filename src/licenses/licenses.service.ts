@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DeepPartial } from 'typeorm';
 import { License } from './entities/license.entity';
 import { ProductsService } from '../products/products.service';
 import { CustomersService } from '../customers/customers.service';
@@ -70,6 +70,8 @@ export class LicensesService {
             pid: product.id,
             mid: dto.machineId,
             exp: endDate.toISOString().split('T')[0],
+            dur: dto.durationDays,
+            typ: creatorId === 'SUBSCRIPTION_SYSTEM' ? 'Suscripción' : 'Código',
             ver: '1.0',
         };
 
@@ -92,7 +94,7 @@ export class LicensesService {
             licenseData.customer = customer;
         }
 
-        const license = this.licensesRepository.create(licenseData);
+        const license = this.licensesRepository.create(licenseData as DeepPartial<License>);
 
         const savedLicense = await this.licensesRepository.save(license);
 
@@ -137,9 +139,13 @@ export class LicensesService {
             return { valid: false, message: `License is ${license.status}` };
         }
 
+        // Validacion de Hardware ID deshabilitada para SAAS
+        // Permitimos que multiples usuarios del mismo tenant (empresa) usen el software
+        /*
         if (license.machineId && license.machineId !== machineId) {
             return { valid: false, message: 'Hardware ID mismatch' };
         }
+        */
 
         if (new Date() > license.endDate) {
             license.status = LicenseStatus.EXPIRED;

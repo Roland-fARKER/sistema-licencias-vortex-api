@@ -19,7 +19,7 @@ export class CryptoUtils {
         const data = JSON.stringify(payload);
         const signature = crypto.sign('sha256', Buffer.from(data), {
             key: privateKey,
-            padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+            padding: crypto.constants.RSA_PKCS1_PADDING,
         });
 
         const payloadBase64 = Buffer.from(data).toString('base64');
@@ -39,7 +39,7 @@ export class CryptoUtils {
                 Buffer.from(data),
                 {
                     key: publicKey,
-                    padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+                    padding: crypto.constants.RSA_PKCS1_PADDING,
                 },
                 signature
             );
